@@ -200,6 +200,17 @@ WHERE
     "beginner-task",
     "up-for-grabs",
     "help wanted (easy)")
+  
+-- From `gfi_issues`, find issues that have been closed.
+-- Saved as `csv/closed_gfi_issues.csv`
+SELECT
+  *
+FROM
+  `gfi-replication-study.gfi_dataset.gfi_issues` i,
+  `ghtorrentmysql1906.MySQL1906.issue_events` ie
+WHERE
+  i.id = ie.issue_id
+  AND ie.action = "closed"
 
 -- Distribution of issues per distinct raw GFI-synonymous label.
 -- Saved as `csv/gfi_label_distribution_raw.csv`
@@ -210,7 +221,8 @@ FROM
   `gfi-replication-study.gfi_dataset.gfi_issues` i
 GROUP BY
   label
-ORDER BY label
+ORDER BY 
+  label
 
 -- Distribution of issues per (sanitized) GFI-synonymous label.
 -- Similar to previous query but label string is converted to lowercase.
@@ -222,4 +234,5 @@ FROM
   `gfi-replication-study.gfi_dataset.gfi_issues` i
 GROUP BY
   label
-ORDER BY label
+ORDER BY 
+  label
