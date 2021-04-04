@@ -170,7 +170,7 @@ ORDER BY
 SELECT
   i.id,
   i.issue_id AS gh_id,
-  LOWER(rl.name) AS label,
+  rl.name AS label,
   p.repo_id,
 FROM
   `gfi-replication-study.gfi_dataset.filtered_projects` p,
