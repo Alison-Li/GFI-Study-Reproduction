@@ -14,8 +14,8 @@ FROM
 WHERE
   w.repo_id = p.id
   AND p.id = pl.project_id
-  AND (pl.LANGUAGE = "c"
-  OR pl.LANGUAGE = "c++")
+  AND (pl.language = "c"
+  OR pl.language = "c++")
 GROUP BY
   repo_id,
   p.name
@@ -148,35 +148,55 @@ UNION DISTINCT (
   LIMIT
     500)
 
--- Takes the top 500 most starred repositories each in Java, JavaScript, C/C++, Python, Ruby, PHP
--- that use a "good first issue" or similar type of label for tagging issues.
+-- From `initial_projects` view, get all the repositories with at least 50 issues.
 -- Stored as a view called `filtered_projects` to indicate the filtered set of repositories.
 SELECT
-  p.repo_id
+  p.repo_id,
+  COUNT(*) AS num_issues
 FROM
   `gfi-replication-study.gfi_dataset.initial_projects` p,
+  `ghtorrentmysql1906.MySQL1906.issues` i
+WHERE
+  p.repo_id = i.repo_id
+GROUP BY
+  p.repo_id
+HAVING
+  COUNT(*) >= 50
+ORDER BY
+  num_issues
+
+-- From `filtered_projects` view, get all issues tagged with a GFI-synonymous label.
+-- Stored as a view called `gfi_issues` to indicate the set of qualifying issues for the study.
+SELECT
+  DISTINCT i.id,
+  i.issue_id AS gh_id,
+  LOWER(rl.name) AS label,
+  p.repo_id,
+FROM
+  `gfi-replication-study.gfi_dataset.filtered_projects` p,
   `ghtorrentmysql1906.MySQL1906.issues` i,
+  `ghtorrentmysql1906.MySQL1906.issue_labels` il,
   `ghtorrentmysql1906.MySQL1906.repo_labels` rl
 WHERE
   p.repo_id = i.repo_id
-  AND p.repo_id = rl.repo_id
-  AND rl.name IN ("good first issue",
+  AND i.id = il.issue_id
+  AND il.label_id = rl.id_
+  AND LOWER(rl.name) IN ("good first issue",
     "good-first-issue",
     "good first bug",
+    "good-first-bug",
     "good first contribution",
     "good first task",
     "minor bug",
+    "minor feature",
     "starter bug",
-    "easy pick",
+    "easy-pick",
     "easy to fix",
     "low hanging fruit",
     "first timers only",
     "easy",
     "newbie",
     "beginner",
+    "beginner-task",
     "up-for-grabs",
-    "help wanted")
-GROUP BY
-  p.repo_id
-HAVING
-  COUNT(*) >= 50
+    "help wanted (easy)")
