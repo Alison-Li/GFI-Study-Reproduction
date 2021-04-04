@@ -200,3 +200,26 @@ WHERE
     "beginner-task",
     "up-for-grabs",
     "help wanted (easy)")
+
+-- Distribution of issues per distinct raw GFI-synonymous label.
+-- Saved as `csv/gfi_label_distribution_raw.csv`
+SELECT
+  i.label AS label,
+  COUNT(*) AS num_issues
+FROM
+  `gfi-replication-study.gfi_dataset.gfi_issues` i
+GROUP BY
+  label
+ORDER BY label
+
+-- Distribution of issues per (sanitized) GFI-synonymous label.
+-- Similar to previous query but label string is converted to lowercase.
+-- Saved as `csv/gfi_label_distribution_lowercase.csv`
+SELECT
+  LOWER(i.label) AS label,
+  COUNT(*) AS num_issues
+FROM
+  `gfi-replication-study.gfi_dataset.gfi_issues` i
+GROUP BY
+  label
+ORDER BY label
