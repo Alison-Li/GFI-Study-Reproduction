@@ -212,6 +212,19 @@ WHERE
   i.id = ie.issue_id
   AND ie.action = "closed"
 
+-- From `gfi_issues`, find the projects that have at least one GFI-synonymous issue.
+-- Saved as `csv/gfi_projects.csv`
+SELECT
+  DISTINCT repo_id,
+  p.name
+FROM
+  `gfi-replication-study.gfi_dataset.gfi_issues` i,
+  `ghtorrentmysql1906.MySQL1906.projects` p
+WHERE
+  i.repo_id = p.id
+ORDER BY
+  repo_id
+
 -- Distribution of issues per distinct raw GFI-synonymous label.
 -- Saved as `csv/gfi_label_distribution_raw.csv`
 SELECT
