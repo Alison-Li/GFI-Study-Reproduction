@@ -4,6 +4,6 @@ A repository containing the tooling used and data produced for my reproduction o
 
 ## Resources
 
-* [GHTorrent 2019-06-01 on Google BigQuery](https://t.co/k8Oq1oD8uV?amp=1})
+* [GHTorrent Google BigQuery](https://t.co/k8Oq1oD8uV?amp=1): Publicly available GHTorrent dump, dated "2019-06-01."
 
-* [GHTorrent Relational Schema](https://ghtorrent.org/relational.html)
+* [GHTorrent Relational Schema](https://ghtorrent.org/relational.html): Useful for interpreting tables and querying them on the GHTorrent dataset.
