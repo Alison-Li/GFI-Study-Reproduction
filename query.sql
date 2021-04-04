@@ -168,7 +168,7 @@ ORDER BY
 -- From `filtered_projects` view, get all issues tagged with a GFI-synonymous label.
 -- Stored as a view called `gfi_issues` to indicate the set of qualifying issues for the study.
 SELECT
-  DISTINCT i.id,
+  i.id,
   i.issue_id AS gh_id,
   LOWER(rl.name) AS label,
   p.repo_id,
