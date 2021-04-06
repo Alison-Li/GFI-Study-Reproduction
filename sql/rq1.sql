@@ -13,6 +13,28 @@ WHERE
 ORDER BY
   repo_id
 
+-- Number of filtered projects that report an issue in 2018.
+SELECT
+  COUNT(*)
+FROM
+  `gfi-replication-study.gfi_dataset.filtered_projects` p,
+  `ghtorrentmysql1906.MySQL1906.issues` i
+WHERE
+  p.repo_id = i.repo_id
+  AND EXTRACT(YEAR
+  FROM i.created_at) = 2018
+
+-- Number of filtered projects that report a GFI in 2018.
+SELECT
+  COUNT(*)
+FROM
+  `gfi-replication-study.gfi_dataset.filtered_projects` p,
+  `ghtorrentmysql1906.MySQL1906.issues` i
+WHERE
+  p.repo_id = i.repo_id
+  AND EXTRACT(YEAR
+  FROM i.created_at) = 2018 AND i.id IN (SELECT id FROM `gfi-replication-study.gfi_dataset.gfi_issues`)
+
 -- Number of projects that have used a GFI-synonymous label between 2009 and 2017.
 -- Saved as `csv/gfi_projects_year.csv`
 SELECT
