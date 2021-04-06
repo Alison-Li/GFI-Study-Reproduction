@@ -107,6 +107,7 @@ WHERE
     `gfi-replication-study.gfi_dataset.gfi_issues` i)
 
 -- Project popularity and number of GFIs correlation.
+-- Saved as `csv/filtered_projects_popularity_gfi_correlation.csv`
 SELECT
   p.repo_id,
   p.num_stars,
