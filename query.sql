@@ -221,7 +221,7 @@ FROM
 GROUP BY
   label
 ORDER BY 
-  label
+  num_issues DESC
 
 -- Distribution of issues per (sanitized) GFI-synonymous label.
 -- Similar to previous query but label string is converted to lowercase.
@@ -234,7 +234,7 @@ FROM
 GROUP BY
   label
 ORDER BY 
-  label
+  num_issues DESC
 
 -- RQ1: HOW FREQUENTLY DO PROJECTS REPORT GFIs?
 
@@ -287,6 +287,7 @@ ORDER BY
   gfi.repo_id
 
 -- Top 40 most starred repositories from `filtered_projects`.
+-- Stored as a view called `top_40_filtered_projects`.
 SELECT
   p.repo_id,
   COUNT(w.user_id) AS num_stars
@@ -303,40 +304,19 @@ LIMIT 40
 
 -- From the top 40 most starred repositories belonging to the dataset,
 -- find the repositories that have reported a GFI.
--- Stored as a view called `top_40_filtered_projects`.
 SELECT
   DISTINCT p.repo_id
 FROM
-  `gfi-replication-study.gfi_dataset.top_40_filtered_projects` p,
-  `ghtorrentmysql1906.MySQL1906.issues` i,
-  `ghtorrentmysql1906.MySQL1906.issue_labels` il,
-  `ghtorrentmysql1906.MySQL1906.repo_labels` rl
+  `gfi-replication-study.gfi_dataset.top_40_filtered_projects` p
 WHERE
-  p.repo_id = i.repo_id
-  AND i.id = il.issue_id
-  AND il.label_id = rl.id_
-  AND LOWER(rl.name) IN ("good first issue",
-    "good-first-issue",
-    "good first bug",
-    "good-first-bug",
-    "good first contribution",
-    "good first task",
-    "minor bug",
-    "minor feature",
-    "starter bug",
-    "easy-pick",
-    "easy to fix",
-    "low hanging fruit",
-    "first timers only",
-    "easy",
-    "newbie",
-    "beginner",
-    "beginner-task",
-    "up-for-grabs",
-    "help wanted (easy)")
+  p.repo_id IN (
+  SELECT
+    i.repo_id
+  FROM
+    `gfi-replication-study.gfi_dataset.gfi_issues` i)
 
 -- Bottom 40 most starred repositories from `filtered_projects`.
--- Stored as a view called `top_40_filtered_projects`.
+-- Stored as a view called `bottom_40_filtered_projects`.
 SELECT
   p.repo_id,
   COUNT(w.user_id) AS num_stars
@@ -356,30 +336,26 @@ LIMIT 40
 SELECT
   DISTINCT p.repo_id
 FROM
-  `gfi-replication-study.gfi_dataset.bottom_40_filtered_projects` p,
-  `ghtorrentmysql1906.MySQL1906.issues` i,
-  `ghtorrentmysql1906.MySQL1906.issue_labels` il,
-  `ghtorrentmysql1906.MySQL1906.repo_labels` rl
+  `gfi-replication-study.gfi_dataset.bottom_40_filtered_projects` p
 WHERE
+  p.repo_id IN (
+  SELECT
+    i.repo_id
+  FROM
+    `gfi-replication-study.gfi_dataset.gfi_issues` i)
+
+-- Project popularity and number of GFIs correlation.
+SELECT
+  p.repo_id,
+  p.num_stars,
+  COUNT(DISTINCT i.id) AS num_gfi
+FROM
+  `gfi-replication-study.gfi_dataset.filtered_projects_popularity` p
+LEFT JOIN
+  `gfi-replication-study.gfi_dataset.gfi_issues` i
+ON
   p.repo_id = i.repo_id
-  AND i.id = il.issue_id
-  AND il.label_id = rl.id_
-  AND LOWER(rl.name) IN ("good first issue",
-    "good-first-issue",
-    "good first bug",
-    "good-first-bug",
-    "good first contribution",
-    "good first task",
-    "minor bug",
-    "minor feature",
-    "starter bug",
-    "easy-pick",
-    "easy to fix",
-    "low hanging fruit",
-    "first timers only",
-    "easy",
-    "newbie",
-    "beginner",
-    "beginner-task",
-    "up-for-grabs",
-    "help wanted (easy)")
+GROUP BY
+  p.repo_id,
+  p.num_stars
+ORDER BY num_stars
