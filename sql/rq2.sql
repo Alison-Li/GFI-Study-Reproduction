@@ -3,7 +3,9 @@
 -- Randomly select 13,452 closed issues tagged with non-GFI labels 
 -- for forming a comparison dataset.
 -- Stored as a view called `closed_non_gfi_issues`
--- Saved as `closed_non_gfi_issues.csv`
+-- Note that if you try executing this query, you will get a different random
+-- set of non-GFI issues. If you wish to repeat my replication study using my
+-- random set, create a table in your SQL workspace using `closed_non_gfi_issues.csv`
 SELECT
   p.repo_id,
   i.id
@@ -30,7 +32,7 @@ SELECT
   ci.id,
   i.created_at AS date_created,
   ie.created_at AS date_resolved,
-  TIMESTAMP_DIFF(i.created_at, ie.created_at, DAY) AS days_resolution
+  TIMESTAMP_DIFF(ie.created_at, i.created_at, DAY) AS days_resolution
 FROM
   `gfi-replication-study.gfi_dataset.closed_gfi_issues` ci,
   `ghtorrentmysql1906.MySQL1906.issues` i,
