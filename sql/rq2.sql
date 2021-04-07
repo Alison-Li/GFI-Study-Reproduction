@@ -19,7 +19,7 @@ WHERE
   AND ie.action = "closed"
   AND i.id NOT IN (SELECT id FROM `gfi-replication-study.gfi_dataset.gfi_issues`)
 ORDER BY
-  RAND() -- TODO: Fix this, non-deterministic if in a view?
+  RAND() -- non-deterministic, no seeding
 LIMIT
   13452
 
