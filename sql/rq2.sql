@@ -17,7 +17,7 @@ WHERE
   AND ie.action = "closed"
   AND i.id NOT IN (SELECT id FROM `gfi-replication-study.gfi_dataset.gfi_issues`)
 ORDER BY
-  RAND()
+  RAND() -- TODO: Fix this, non-deterministic if in a view?
 LIMIT
   13452
 
@@ -26,6 +26,20 @@ LIMIT
 -- Replace the corresponding table name in the query for getting the result set for either.
 
 -- Number of days of resolution for a GFI.
+SELECT
+  ci.id,
+  i.created_at AS date_created,
+  ie.created_at AS date_resolved,
+  TIMESTAMP_DIFF(i.created_at, ie.created_at, DAY) AS days_resolution
+FROM
+  `gfi-replication-study.gfi_dataset.closed_gfi_issues` ci,
+  `ghtorrentmysql1906.MySQL1906.issues` i,
+  `ghtorrentmysql1906.MySQL1906.issue_events` ie
+WHERE
+  ci.id = ie.issue_id
+  AND i.id = ci.id
+  AND ie.action = "closed"
+  AND ie.action_specific IS NOT NULL
 
 -- Number of developers subscribed to a GFI.
 SELECT
@@ -43,6 +57,19 @@ GROUP BY
   i.id
 
 -- Number of times developers are mentioned in GFI body
+SELECT
+  i.id,
+  COUNT(*) AS num_mentioned
+FROM
+  `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
+INNER JOIN
+  `ghtorrentmysql1906.MySQL1906.issue_events` ie
+ON
+  i.id = ie.issue_id
+WHERE
+  ie.action = "mentioned"
+GROUP BY
+  i.id
 
 -- Number of developers who comment on each GFI and number of comments on each GFI.
 SELECT
