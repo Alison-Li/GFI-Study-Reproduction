@@ -33,14 +33,17 @@ SELECT
   i.created_at AS date_created,
   ie.created_at AS date_resolved,
   TIMESTAMP_DIFF(ie.created_at, i.created_at, DAY) AS days_resolution
-FROM
-  `gfi-replication-study.gfi_dataset.closed_gfi_issues` ci,
-  `ghtorrentmysql1906.MySQL1906.issues` i,
+FROM (`gfi-replication-study.gfi_dataset.closed_gfi_issues` ci
+  INNER JOIN
+    `ghtorrentmysql1906.MySQL1906.issues` i
+  ON
+    i.id = ci.id)
+LEFT JOIN
   `ghtorrentmysql1906.MySQL1906.issue_events` ie
-WHERE
+ON
   ci.id = ie.issue_id
-  AND i.id = ci.id
-  AND ie.action = "closed"
+WHERE
+  ie.action = "closed"
   AND ie.action_specific IS NOT NULL
 
 -- Number of developers subscribed to a GFI.
@@ -49,7 +52,7 @@ SELECT
   COUNT(DISTINCT ie.actor_id) AS num_subscribed
 FROM
   `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
-INNER JOIN
+LEFT JOIN
   `ghtorrentmysql1906.MySQL1906.issue_events` ie
 ON
   i.id = ie.issue_id
@@ -64,7 +67,7 @@ SELECT
   COUNT(*) AS num_mentioned
 FROM
   `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
-INNER JOIN
+LEFT JOIN
   `ghtorrentmysql1906.MySQL1906.issue_events` ie
 ON
   i.id = ie.issue_id
@@ -80,7 +83,7 @@ SELECT
   COUNT(ic.comment_id) AS num_comments
 FROM
   `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
-INNER JOIN
+LEFT JOIN
   `ghtorrentmysql1906.MySQL1906.issue_comments` ic
 ON
   i.id = ic.issue_id
