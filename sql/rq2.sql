@@ -23,6 +23,23 @@ ORDER BY
 LIMIT
   13452
 
+-- Find the frequency of labels used for tagging the issues in the set of 
+-- randomly selected non-GFIs.
+SELECT
+  rl.name,
+  COUNT(i.id) AS num_issues
+FROM
+  `gfi-replication-study.gfi_dataset.closed_non_gfi_issues` i,
+  `ghtorrentmysql1906.MySQL1906.issue_labels` il,
+  `ghtorrentmysql1906.MySQL1906.repo_labels` rl
+WHERE
+  i.id = il.issue_id
+  AND il.label_id = rl.id_
+GROUP BY
+  rl.name
+ORDER BY
+  num_issues DESC
+
 -- The following set of queries are for collecting statistics for the GFI and non-GFIs using the 
 -- datasets stored in the views `closed_gfi_issues` and `closed_non_gfi_issues`
 -- Replace the corresponding table name in the query for getting the result set for either.
