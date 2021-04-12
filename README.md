@@ -4,9 +4,9 @@ A repository containing the tooling used and data produced for my reproduction o
 
 ## SQL Workspace
 
-Contact me if you would like access to the dataset of views I created for this study. 
+Contact me if you would like access to the Google BigQuery project and dataset I created for this study. 
 
-Alternatively, you can access the GHTorrent dataset via  Google BigQuery. Use `data_collection.sql` to create initial views and follow the comments and queries in `rq1.sql` and `rq2.sql`. 
+Alternatively, you can access the GHTorrent dataset via  Google BigQuery and use `data_collection.sql` to create initial views and follow the comments and queries in `rq1.sql` and `rq2.sql`. All SQL files can be found in the `sql` folder at root level of the repository. **Feedback is welcome and highly encouraged** if you happen to spot any mistakes in any of the SQL queries I used.
 
 ## Resources
 
