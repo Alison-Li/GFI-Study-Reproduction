@@ -89,6 +89,19 @@ ON
 GROUP BY
   i.id
 
+-- Number of times a GFI has been referenced in a commit.
+SELECT
+  i.id,
+  COUNT(CASE WHEN ie.action_specific IS NOT NULL THEN 1 ELSE 0 END) AS num_reference
+FROM
+  `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
+LEFT JOIN
+  `ghtorrentmysql1906.MySQL1906.issue_events` ie
+ON
+  i.id = ie.issue_id
+GROUP BY
+  i.id
+
 -- Number of developers who comment on each GFI and number of comments on each GFI.
 SELECT
   i.id,
