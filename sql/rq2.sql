@@ -49,30 +49,26 @@ WHERE
 -- Number of developers subscribed to a GFI.
 SELECT
   i.id,
-  COUNT(DISTINCT ie.actor_id) AS num_subscribed
+  COUNT(DISTINCT (CASE WHEN ie.action = "subscribed" THEN ie.actor_id ELSE 0 END)) AS num_subscribed
 FROM
   `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
 LEFT JOIN
   `ghtorrentmysql1906.MySQL1906.issue_events` ie
 ON
   i.id = ie.issue_id
-WHERE
-  ie.action = "subscribed"
 GROUP BY
   i.id
 
--- Number of times developers are mentioned in GFI body
+-- Number of times developers are mentioned in GFI body.
 SELECT
   i.id,
-  COUNT(*) AS num_mentioned
+  COUNT(CASE WHEN ie.action = "mentioned" THEN 1 ELSE 0 END) AS num_mentioned
 FROM
   `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
 LEFT JOIN
   `ghtorrentmysql1906.MySQL1906.issue_events` ie
 ON
   i.id = ie.issue_id
-WHERE
-  ie.action = "mentioned"
 GROUP BY
   i.id
 
