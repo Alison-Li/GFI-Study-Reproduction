@@ -78,29 +78,55 @@ GROUP BY
 
 -- Number of times developers are mentioned in GFI body.
 SELECT
-  i.id,
-  COUNT(CASE WHEN ie.action = "mentioned" THEN 1 ELSE 0 END) AS num_mentioned
-FROM
-  `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
-LEFT JOIN
-  `ghtorrentmysql1906.MySQL1906.issue_events` ie
+  id1 AS issue_id, 
+  COALESCE(num_mentioned, 0) AS num_mentioned
+FROM (
+  SELECT
+    i.id AS id1
+  FROM
+    `gfi-replication-study.gfi_dataset.closed_gfi_issues` i)
+LEFT JOIN (
+  SELECT
+    i.id AS id2,
+    COUNT(*) AS num_mentioned
+  FROM
+    `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
+  LEFT JOIN
+    `ghtorrentmysql1906.MySQL1906.issue_events` ie
+  ON
+    i.id = ie.issue_id
+  WHERE
+    ie.action = "mentioned"
+  GROUP BY
+    i.id )
 ON
-  i.id = ie.issue_id
-GROUP BY
-  i.id
+  id1 = id2
 
 -- Number of times a GFI has been referenced in a commit.
 SELECT
-  i.id,
-  COUNT(CASE WHEN ie.action_specific IS NOT NULL THEN 1 ELSE 0 END) AS num_reference
-FROM
-  `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
-LEFT JOIN
-  `ghtorrentmysql1906.MySQL1906.issue_events` ie
+  id1 AS issue_id, 
+  COALESCE(num_reference, 0) AS num_reference
+FROM (
+  SELECT
+    i.id AS id1
+  FROM
+    `gfi-replication-study.gfi_dataset.closed_gfi_issues` i)
+LEFT JOIN (
+  SELECT
+    i.id AS id2,
+    COUNT(*) AS num_reference
+  FROM
+    `gfi-replication-study.gfi_dataset.closed_gfi_issues` i
+  LEFT JOIN
+    `ghtorrentmysql1906.MySQL1906.issue_events` ie
+  ON
+    i.id = ie.issue_id
+  WHERE
+    ie.action = "referenced"
+  GROUP BY
+    i.id )
 ON
-  i.id = ie.issue_id
-GROUP BY
-  i.id
+  id1 = id2
 
 -- Number of developers who comment on each GFI and number of comments on each GFI.
 SELECT
