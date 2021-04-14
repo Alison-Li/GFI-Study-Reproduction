@@ -1,0 +1,30 @@
+id,gh_id,label,repo_id,event_id,issue_id,actor_id,action,action_specific,created_at,url,category
+19994001,11416,starter bug,392,827810339,19994001,3983326,closed,,2016-10-18 16:55:06 UTC,https://github.com/adobe/brackets/issues/11416,a
+31556768,3306,good first issue,3601879,1714432499,31556768,134394,closed,e683891183d723145e571ec397beb1856fcb5cdc,2018-07-03 16:03:52 UTC,https://github.com/videojs/video.js/issues/3306,b
+99775961,3949,Good first issue,8246028,2350101936,99775961,33160087,closed,,2019-05-17 18:16:43 UTC,https://github.com/wesnoth/wesnoth/issues/3949,a
+36708359,6659,good first issue,23203,2269233893,36708359,429449,closed,,2019-04-11 13:27:37 UTC,https://github.com/magento/magento2/issues/6659,c
+12841744,2309,Minor Bug,1394906,212467851,12841744,1323781,closed,,2014-12-29 13:15:07 UTC,https://github.com/ether/etherpad-lite/issues/2309,c
+54903083,2302,Newbie,10502,1253859722,54903083,7504,closed,,2017-09-18 16:57:34 UTC,https://github.com/technomancy/leiningen/issues/2302,c
+42086016,6461,easy,14098,930694044,42086016,51515,closed,,2017-01-20 13:27:52 UTC,https://github.com/radareorg/radare2/issues/6461,c
+40426160,5692,good first issue,11750891,1155626735,40426160,109274,closed,,2017-07-08 22:12:33 UTC,https://github.com/mui-org/material-ui/issues/5692,c
+52260545,9280,Easy,5219,1163396285,52260545,25930,closed,,2017-07-13 21:48:05 UTC,https://github.com/scikit-learn/scikit-learn/issues/9280,b
+565197358217,,good first issue,11750891,1250950594,56519735,1421701,closed,,2017-09-15 12:07:25 UTC,https://github.com/mui-org/material-ui/issues/8217,b
+70060883,19619,good first issue,20078281,1553495752,70060883,11335952,closed,67bbc841850b9652a489754368f683e5089c717b,2018-04-03 08:15:15 UTC,https://github.com/nodejs/node/issues/19619,b
+30424338,3177,up-for-grabs,417939,1018580577,30424338,265358,closed,,2017-03-28 13:51:06 UTC,https://github.com/gitextensions/gitextensions/issues/3177,a
+73279026,9327,good first issue,26047131,1619005751,73279026,1133697,closed,,2018-05-10 03:38:16 UTC,https://github.com/zulip/zulip/issues/9327,a
+34625217,4923,good first issue,12752080,1556578121,34625217,10432,closed,,2018-04-04 14:18:04 UTC,https://github.com/bokeh/bokeh/issues/4923,c
+41233290,15988,up-for-grabs,15022227,1154363067,41233290,14052,closed,,2017-07-07 12:09:39 UTC,https://github.com/dotnet/roslyn/issues/15988,b
+10871996,1404,easy,4276991,161892598,10871996,253477,closed,,2014-09-05 16:15:45 UTC,https://github.com/hashicorp/packer/issues/1404,c
+17433252,63,up-for-grabs,16922941,657184711,17433252,5755427,closed,,2016-05-11 13:46:37 UTC,https://github.com/NativeScript/NativeScript/issues/63,c
+85678872,9189,Easy,21170493,1894274274,85678872,14585316,closed,,2018-10-10 00:43:27 UTC,https://github.com/nim-lang/Nim/issues/9189,c
+63092992,7069,good first issue,16351512,1799571562,63092992,687897,closed,,2018-08-21 08:42:35 UTC,https://github.com/babel/babel/issues/7069,b
+57091114,8379,good first issue,11750891,1264443527,57091114,1421701,closed,,2017-09-25 20:05:23 UTC,https://github.com/mui-org/material-ui/issues/8379,a
+18216134,2807,up-for-grabs,417939,725772941,18216134,265358,closed,,2016-07-18 08:06:26 UTC,https://github.com/gitextensions/gitextensions/issues/2807,c
+10539791,3427,beginner,5768596,146597048,10539791,162622,closed,,2014-07-29 05:40:57 UTC,https://github.com/TryGhost/Ghost/issues/3427,c
+43881628,12979,newbie,24444,1142082715,43881628,75656,closed,210bdc8df8db39ea8c6225c550a86b3a822c8c10,2017-06-28 10:15:16 UTC,https://github.com/phpmyadmin/phpmyadmin/issues/12979,b
+100223963,39666,good first issue,17302594,2376430495,100223963,488785,closed,,2019-05-29 20:59:42 UTC,https://github.com/elastic/elasticsearch/issues/39666,a
+40562854,16424,beginner,28947324,968962900,40562854,3911340,closed,,2017-02-20 10:24:22 UTC,https://github.com/microsoft/vscode/issues/16424,a
+78657766,547,good first issue,7306035,1884679444,78657766,7199109,closed,,2018-10-04 13:51:45 UTC,https://github.com/PHP-FFMpeg/PHP-FFMpeg/issues/547,c
+46219528,3252,good first contribution,30988985,1009875729,46219528,20180,closed,8acaa9a3ea209be604e73477445c991e842ffe9e,2017-03-22 06:12:46 UTC,https://github.com/expressjs/express/issues/3252,a
+91155838,12907,good first issue,8127,2006970314,91155838,3093417,closed,,2018-12-05 12:28:17 UTC,https://github.com/matplotlib/matplotlib/issues/12907,c
+869574,676,low hanging fruit,8127,27301308,869574,26333,closed,,2012-10-19 07:19:27 UTC,https://github.com/matplotlib/matplotlib/issues/676,c
